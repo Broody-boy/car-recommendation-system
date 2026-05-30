@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  ELECTRIC
+  HYBRID
+  CNG
+  LPG
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+  CVT
+  DCT
+  AMT
+}
+
+enum BodyType {
+  HATCHBACK
+  SEDAN
+  SUV
+  MUV
+  COUPE
+  CONVERTIBLE
+  WAGON
+  PICKUP_TRUCK
+}
+
+enum UsageType {
+  DAILY_COMMUTE
+  FAMILY
+  OFF_ROADING
+  LONG_DRIVE
+  CITY_DRIVING
+}
+
+model Brand {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(100)
+  logoUrl   String?  @db.VarChar(500)
+  createdAt DateTime @default(now())
+
+  cars Car[]
+
+  @@map("brands")
+}
+
+model Car {
+  id              Int           @id @default(autoincrement())
+  brandId         Int
+  model           String        @db.VarChar(150)
+  variant         String        @db.VarChar(100)
+  price           Decimal       @db.Decimal(10, 2)
+  mileage         Decimal       @db.Decimal(5, 1)
+  safetyRating    Int
+  fuelType        FuelType
+  transmission    Transmission
+  bodyType        BodyType
+  engine          String        @db.VarChar(50)
+  power           String        @db.VarChar(30)
+  torque          String        @db.VarChar(30)
+  seatingCapacity Int
+  launchYear      Int
+  imageUrl        String?       @db.VarChar(500)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  brand Brand @relation(fields: [brandId], references: [id], onUpdate: Cascade)
+
+  reviews        Review[]
+  recommendations RecommendationHistory[]
+
+  @@index([brandId])
+  @@index([fuelType])
+  @@index([transmission])
+  @@index([bodyType])
+  @@index([price])
+  @@index([mileage])
+  @@index([safetyRating])
+  @@index([seatingCapacity])
+  @@index([fuelType, transmission, bodyType])
+  @@index([bodyType, price, fuelType])
+  @@index([brandId, model])
+  @@map("cars")
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  carId      Int
+  rating     Int
+  reviewText String?  @db.Text
+  authorName String   @db.VarChar(100)
+  createdAt  DateTime @default(now())
+
+  car Car @relation(fields: [carId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([carId])
+  @@index([rating])
+  @@map("reviews")
+}
+
+model UserPreference {
+  id                    Int            @id @default(autoincrement())
+  minBudget             Decimal?       @db.Decimal(10, 2)
+  maxBudget             Decimal?       @db.Decimal(10, 2)
+  familySize            Int?
+  usageType             UsageType?
+  preferredBodyType     BodyType?
+  preferredFuelType     FuelType?
+  preferredTransmission Transmission?
+  mileagePriority       Int?
+  safetyPriority        Int?
+  createdAt             DateTime       @default(now())
+
+  recommendations RecommendationHistory[]
+
+  @@map("user_preferences")
+}
+
+model RecommendationHistory {
+  id                   Int      @id @default(autoincrement())
+  preferenceId         Int
+  recommendedCarId     Int
+  recommendationScore  Decimal  @db.Decimal(5, 2)
+  explanation          String?  @db.Text
+  createdAt            DateTime @default(now())
+
+  preference   UserPreference @relation(fields: [preferenceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  recommendedCar Car         @relation(fields: [recommendedCarId], references: [id], onUpdate: Cascade)
+
+  @@index([preferenceId])
+  @@index([recommendedCarId])
+  @@index([recommendationScore])
+  @@map("recommendation_history")
+}
