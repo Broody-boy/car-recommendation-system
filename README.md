@@ -4,10 +4,7 @@
 
 ## Demo
 
-- **Live URL**: _<!-- Add deployment URL -->_
-- **Repository**: https://github.com/yourusername/car-dekho
-- **Screen Recording**: _<!-- Add Loom/QuickTime link -->_
-
+- **Live URL**: https://car-recommendation-system-xi.vercel.app
 ---
 
 ## Problem Statement
@@ -32,7 +29,7 @@ This application eliminates that friction by:
 | **Explainable AI** | Template-based natural language explanations for every recommendation |
 | **Why Not Analysis** | Tradeoff bullets highlighting each car's weaknesses |
 | **Car Comparison** | Side-by-side table with auto-highlighted best values, pros/cons, category winners, and overall winner |
-| **Responsive UI** | Mobile-first design with Tailwind CSS v4 |
+| **Responsive UI** | Mobile and Desktop compatible design with Tailwind CSS v4 |
 
 ---
 
@@ -355,7 +352,33 @@ railway add --database postgresql   # Provisions PostgreSQL
 railway up                          # Deploys Express app
 ```
 
-Railway automatically injects `DATABASE_URL` into the environment.
+set `DATABASE_URL`, `CLIENT_URL` into the environment.
+
+---
+
+## Why This Tech Stack
+
+### Frontend: React + Vite + TypeScript + Tailwind CSS
+
+- **React** — Easier developement, component-driven UIs, Massive ecosystem.
+- **Vite** — Fastest dev server (instant Hot Module Reload).
+- **TypeScript** — To enforce Type safety.
+- **Tailwind CSS v4** — Utility-first CSS with zero runtime. Easier to make responsive websites.
+
+### Backend: Express
+
+- **Express** — Easier REST API developement, Massive ecosystem.
+- **Prisma** — One of the most popular ORMs.
+
+### DB: Postgres
+
+- **SQL** — Easier for making structured tables.
+- **Support for pgvectors** — Can be used in the future to expand the app to include RAG based systems.
+
+
+### State Management: Zustand over Redux
+
+The app has exactly two pieces of client state (questionnaire answers and comparison selection), each under 10 fields. Zustand's hook-based API eliminates Redux boilerplate (actions, reducers, dispatch) without sacrificing TypeScript inference. Context would cause unnecessary re-renders on step changes.
 
 ---
 
@@ -382,7 +405,7 @@ Shortlisting 2-3 cars from 5 recommendations is still cognitively demanding. The
 | Feature | Why cut |
 |---------|---------|
 | **Authentication** | MVP was made, hence skipped this. |
-| **User accounts** | Not needed because the core use case in the MVP. |
+| **User accounts** | MVP with core use case was made, hence skipped this. |
 | **Advanced analytics** | Dashboard for tracking user preferences is valuable but doesn't help the current user. |
 | **Admin dashboard** | Car inventory management is a separate product concern. |
 | **Real AI/LLM** | Can be used in conjunction. Can add a button called view with AI and then the required response can be generated. This way, templates (current scenario) are auditable but adding AI makes the platform more interactive. Also, AI is prone to hallucination.|
@@ -406,7 +429,7 @@ Shortlisting 2-3 cars from 5 recommendations is still cognitively demanding. The
 - **Architecture** — Controller/Service/Repository separation, engine purity, data flow integrity
 - **Bug fixes** — Database connectivity, API response shape mismatches, explanation service edge cases
 - **Configuration issues missed by AI** — Supabase has a separate IPv4 connection string, which was resolved promptly after learning the issue.
-- **Fine tweaks to the Documentation** — The value points were reviewed and evaluated
+- **Fine tweaks to the Documentation** — The value points were reviewed, evaluated, and refined/altered to match the actual code base and not just contain AI generated buzz words.
 
 ---
 
