@@ -49,22 +49,6 @@ export default function ComparePage() {
               See how your top choices stack up against each other.
             </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              type="button"
-              onClick={() => navigate('/recommendations')}
-              className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
-            >
-              ← Back
-            </button>
-            <button
-              type="button"
-              onClick={clearCompare}
-              className="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors"
-            >
-              Clear All
-            </button>
-          </div>
         </div>
 
         <ComparisonHeader cars={selected} />

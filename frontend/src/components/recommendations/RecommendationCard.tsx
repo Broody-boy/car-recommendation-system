@@ -59,17 +59,9 @@ export default function RecommendationCard({ item, rank }: RecommendationCardPro
       <div className="p-6">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="relative w-full lg:w-48 h-36 bg-slate-100 rounded-lg overflow-hidden shrink-0">
-            {item.car.imageUrl ? (
-              <img
-                src={item.car.imageUrl}
-                alt={`${item.car.make} ${item.car.model}`}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-slate-300 text-5xl">
-                🚗
-              </div>
-            )}
+            <div className="w-full h-full flex items-center justify-center text-slate-300 text-5xl">
+              🚗
+            </div>
             <div className="absolute top-2 left-2 bg-primary text-white text-xs font-bold px-2 py-0.5 rounded">
               #{rank}
             </div>
@@ -149,13 +141,6 @@ export default function RecommendationCard({ item, rank }: RecommendationCardPro
               className="text-sm text-primary hover:text-primary-dark transition-colors"
             >
               {expanded ? 'Hide Details' : 'View Details'}
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate(`/cars/${item.car.id}`)}
-              className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark transition-colors"
-            >
-              View Details
             </button>
           </div>
         </div>

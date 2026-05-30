@@ -9,7 +9,7 @@ export default function RecommendationScore({ score }: RecommendationScoreProps)
   const offset = circumference - (score / 100) * circumference
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative inline-flex items-center justify-center">
       <svg width="96" height="96" viewBox="0 0 96 96" className="transform -rotate-90">
         <circle
           cx="48"
@@ -32,11 +32,11 @@ export default function RecommendationScore({ score }: RecommendationScoreProps)
           className={`transition-all duration-1000 ease-out ${getScoreColor(score)}`}
         />
       </svg>
-      <div className="absolute flex flex-col items-center">
-        <span className={`text-2xl font-bold ${getScoreColor(score)}`}>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className={`text-2xl font-bold leading-none ${getScoreColor(score)}`}>
           {score}
         </span>
-        <span className="text-xs text-slate-400">/ 100</span>
+        <span className="text-xs text-slate-400 leading-none mt-0.5">/ 100</span>
       </div>
     </div>
   )

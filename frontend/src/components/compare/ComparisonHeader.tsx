@@ -26,17 +26,9 @@ export default function ComparisonHeader({ cars }: ComparisonHeaderProps) {
 
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 bg-slate-100 rounded-lg overflow-hidden shrink-0">
-              {car.imageUrl ? (
-                <img
-                  src={car.imageUrl}
-                  alt={`${car.make} ${car.model}`}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-slate-300 text-2xl">
-                  🚗
-                </div>
-              )}
+              <div className="w-full h-full flex items-center justify-center text-slate-300 text-2xl">
+                🚗
+              </div>
             </div>
             <div className="min-w-0">
               <h3 className="font-bold text-text-heading truncate">
