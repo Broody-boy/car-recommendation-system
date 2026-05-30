@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import type { RecommendationItem } from '../../api/recommendations.api'
 import { useComparisonStore, type CompareItem } from '../../store/comparisonStore'
 import { formatPrice, formatMileage, getSafetyStars } from '../../utils/formatters'
@@ -16,7 +15,6 @@ interface RecommendationCardProps {
 export default function RecommendationCard({ item, rank }: RecommendationCardProps) {
   const [expanded, setExpanded] = useState(false)
   const [showCompareWarning, setShowCompareWarning] = useState(false)
-  const navigate = useNavigate()
   const { selected, addToCompare, removeFromCompare } = useComparisonStore()
 
   const isSelected = selected.some((s) => s.carId === item.carId)

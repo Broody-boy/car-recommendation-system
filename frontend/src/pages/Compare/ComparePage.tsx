@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useComparisonStore } from '../../store/comparisonStore'
 import ComparisonHeader from '../../components/compare/ComparisonHeader'
 import ComparisonTable from '../../components/compare/ComparisonTable'
@@ -10,8 +9,7 @@ import EmptyComparison from '../../components/compare/EmptyComparison'
 import ComparisonSkeleton from '../../components/compare/ComparisonSkeleton'
 
 export default function ComparePage() {
-  const { selected, clearCompare } = useComparisonStore()
-  const navigate = useNavigate()
+  const { selected } = useComparisonStore()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
