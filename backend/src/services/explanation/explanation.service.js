@@ -1,16 +1,19 @@
+const SKIP_KEYS = new Set(["finalScore", "car"]);
+
 function getTopFactors(breakdown, count = 3) {
   return Object.entries(breakdown)
-    .filter(([key]) => key !== "finalScore")
+    .filter(([key]) => !SKIP_KEYS.has(key))
     .map(([key, value]) => ({ key, ...value }))
+    .filter((f) => f.score != null)
     .sort((a, b) => b.score - a.score)
     .slice(0, count);
 }
 
 function getLowFactors(breakdown, maxCount = 3) {
   return Object.entries(breakdown)
-    .filter(([key]) => key !== "finalScore")
+    .filter(([key]) => !SKIP_KEYS.has(key))
     .map(([key, value]) => ({ key, ...value }))
-    .filter((f) => f.tradeoff && f.score < 100)
+    .filter((f) => f.tradeoff && f.score != null && f.score < 100)
     .sort((a, b) => a.score - b.score)
     .slice(0, maxCount);
 }
